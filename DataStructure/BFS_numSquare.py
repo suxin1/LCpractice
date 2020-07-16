@@ -1,9 +1,11 @@
 """
 给定一个数N，使平方数(1, 4, 9, 16, ...)相加的和等于N，求最少要用多少个平方数。
+# num_squares(n) = min{num_squares((n - k)) + 1 ||　ｋ属于任意平方数}
 """
 
 from collections import deque
 import math
+
 
 # 粗暴求解
 def numSquares(n: int) -> int:
@@ -23,6 +25,7 @@ def numSquares(n: int) -> int:
             q.append((sum + s, count + 1))
 
     return -1
+
 
 # num_squares(n) = min{num_squares((n - k)) + 1 ||　ｋ属于任意平方数}
 # 粗暴求解算法2
@@ -56,6 +59,24 @@ def num_squares_fast(n: int) -> int:
                 break
             dp[i] = min(dp[i], dp[i-s] + 1)
     return dp[-1]
+
+
+# 贪婪算法
+def num_squares_greedy(n: int) -> int:
+    num_squares = [(i + 1) ** 2 for i in range(int(math.sqrt(n)))]
+
+    def is_divided_by(num: int, count: int) -> bool:
+        if count == 1:
+            return num in num_squares
+
+        for k in num_squares:
+            if is_divided_by(num - k, count - 1):
+                return True
+        return False
+
+    for count in range(1, n+1):
+        if is_divided_by(n, count):
+            return count
 
 
 print(num_squares_fast(7168))
