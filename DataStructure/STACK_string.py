@@ -6,5 +6,13 @@
     左括号必须以正确的顺序闭合。
 """
 
-def isValid(s: str) -> bool:
+
+def is_valid(s: str) -> bool:
+
+    valid_char = ' '
+    start = '([{'
+    end = ')]}'
     pass
+
+
+print(is_valid('((){})'))
