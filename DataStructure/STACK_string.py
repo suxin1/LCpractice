@@ -8,11 +8,27 @@
 
 
 def is_valid(s: str) -> bool:
-
+    
     valid_char = ' '
     start = '([{'
     end = ')]}'
-    pass
+    stack = []
+    for char in s:
+        if char in valid_char:
+            continue
+        if char in start:
+            stack.append(char)
+        elif char in end:
+            if not len(stack):
+                return False
+            token = end.index(char)
+            prev_char = stack.pop()
+            if prev_char == start[token]:
+                continue
+            return False
+    if len(stack) > 0:
+        return False
+    return True
 
 
 print(is_valid('((){})'))
