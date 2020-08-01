@@ -2,17 +2,18 @@
 #define _STACK_C
 
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct {
-    int8_t index;
-    int* data;
+    int index;
     int length;
+    int* data;
 } Stack;
 
-void stack_init(int length, Stack stack) {
-    stack.length = length;
-    stack.index = -1;
-    stack.data = (int *) malloc (length * sizeof(int));
+void stack_init(int length, Stack *stack) {
+    stack -> length = length;
+    stack -> index = -1;
+    stack -> data = (int *) malloc (length * sizeof(int));
 }
 
 int stack_get(Stack stack) {
@@ -22,16 +23,17 @@ int stack_get(Stack stack) {
     return stack.data[stack.index];
 }
 
-void stack_pop(Stack stack) {
-    if(!(stack.index < 0)) {
-        stack.index --;
+void stack_pop(Stack *stack) {
+    if(!(stack -> index < 0)) {
+        stack -> index --;
     }
 }
 
-void stack_add(Stack stack, char c) {
-    if(!(stack.index == stack.length - 1)) {
-        stack.index ++;
-        stack.data[stack.index] = c;
+void stack_add(Stack *stack, int c) {
+    if(!(stack -> index == stack -> length - 1)) {
+        printf("index: %d, add %d\n", stack -> index, c);
+        stack -> index ++;
+        stack -> data[stack -> index] = c;
     }
 }
 
