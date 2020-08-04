@@ -1,5 +1,6 @@
 #define TRUE 1
 #define FALSE 0
+
 #include <inttypes.h>
 #include <string.h>
 #include <stdio.h>
@@ -12,7 +13,7 @@ bool isValid(char *s);
 
 int main(void) {
     printf("start\n");
-    char *s = ")(((())))( ){( )}";
+    char *s = "(((())))( ){( )}";
     bool res = isValid(s);
     printf("res:%d\n", res);
 }
