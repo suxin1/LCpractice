@@ -16,6 +16,10 @@ void stack_init(int length, Stack *stack) {
     stack -> data = (int *) malloc (length * sizeof(int));
 }
 
+int stack_isEmpty(Stack stack) {
+    return stack.index < 0;
+}
+
 int stack_get(Stack stack) {
     if (stack.index < 0) {
         return -1;
