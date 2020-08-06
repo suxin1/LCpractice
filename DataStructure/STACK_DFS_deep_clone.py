@@ -1,5 +1,5 @@
 from typing import List
-
+from collections import deque
 
 class Node(object):
     def __init__(self, val=0, neighbors=[]):
@@ -28,6 +28,15 @@ def clone_graph(root):
         return new_node
 
     return recursive(root)
+
+# stack
+def clone_graph_stack(node):
+    mem = dict()
+    new_node = Node(val=node.val, neighbors=[])
+    queue = deque([node])
+
+    while queue:
+        cur = queue.pop()
 
 
 graph = [[2,4],[1,3],[2,4],[1,3]]
