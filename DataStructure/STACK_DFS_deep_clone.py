@@ -1,5 +1,9 @@
-from typing import List
+"""
+无向图深拷贝
+"""
+
 from collections import deque
+
 
 class Node(object):
     def __init__(self, val=0, neighbors=[]):
@@ -7,7 +11,7 @@ class Node(object):
         self.neighbors = neighbors
 
 
-# recursive
+# 递归(调用栈 LIFO) recursive
 def clone_graph(root):
     if not root:
         return None
@@ -20,23 +24,32 @@ def clone_graph(root):
         new_node = Node(val=node.val, neighbors=[])
         mem[node.val] = new_node
 
-        neighbors = []
-        for n in node.neighbors:
-            neighbors.append(recursive(n))
-        new_node.neighbors = neighbors
+        if node.neighbors:
+            new_node.neighbors = [recursive(n) for n in node.neighbors]
 
         return new_node
 
     return recursive(root)
 
-# stack
+
+# 使用广度优先搜索 (BFS)
 def clone_graph_stack(node):
+    if not node:
+        return node
+
     mem = dict()
-    new_node = Node(val=node.val, neighbors=[])
+    mem[node] = Node(val=node.val, neighbors=[])
     queue = deque([node])
 
     while queue:
-        cur = queue.pop()
+        cur = queue.popleft()
+        for n in cur.neighbors:
+            if n not in mem:
+                mem[n] = Node(val=n.val, neighbors=[])
+                queue.append(n)
+            mem[cur].neighbors.append(mem[n])
+
+    return mem[node]
 
 
 graph = [[2,4],[1,3],[2,4],[1,3]]
@@ -52,5 +65,6 @@ def list_graph(list):
 
     return mem[1]
 
+
 graph_res = list_graph(graph)
-graph_clone = clone_graph(graph_res)
+graph_clone = clone_graph_stack(graph_res)
