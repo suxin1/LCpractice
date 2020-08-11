@@ -8,6 +8,8 @@
 def sum_way(nums, S):
     mem = dict()
     length = len(nums)
+    # 递推公式：
+    #   recursion(index, rest) = recursion(index + 1, rest + nums[index]) + recursion(index + 1, rest - nums[index])
 
     def recursion(index, rest):
         key = str(index) + ',' + str(rest)
@@ -29,29 +31,35 @@ def sum_way(nums, S):
     return recursion(0, S)
 
 
-def sum_way_v2(l, n):
+def sum_way_v2(nums, S):
     """
     把所有符号为正的数总和设为一个背包的容量，容量为x；把所有符号为负的数总和设为一个背包的容量，容量为y。
     在给定的数组中，有多少种选择方法让背包装满。令sum为数组的总和，则x+y = sum。
     而两个背包的差为S,则x-y=S。从而求得x=(S+sum)/2。
     """
-    _sum = sum(l)
+    _sum = sum(nums)
     # 当 n + sum 不能被2除尽时，不满足上式。
-    if n > _sum or (n + _sum) % 2 == 1:
+    if S > _sum or (S + _sum) % 2 == 1:
         return 0
 
-    value = int((n + _sum) / 2)
-    dp = [0] * (value + 1)
-    dp[0] = 1
+    value = int((S + _sum) / 2)
 
-    for num in l:
-        rest = value
-        while num <= rest:
-            dp[rest] += dp[rest-num]
-            rest -= 1
+    dp = list([list([1 if j == 0 else 0 for j in range(value + 1)]) for i in range(len(nums) + 1)])  # 二维数组:i 表示前i个数，j：表示前i个数需要装满的容量
+    # 前i个数装满j的方法    不考虑数i    考虑数i
+    # dp[i][j]         = dp[i-1][j] + dp[i-1][j-nums[i-1]];
+    print(dp)
+    for i in range(1, len(nums) + 1):
+        j = value
+        while j > 0:
+            if j >= nums[i - 1]:
+                dp[i][j] = dp[i-1][j] + dp[i-1][j-nums[i-1]]
+            else:
+                dp[i][j] = dp[i-1][j]
+            j -= 1
+    print(dp)
+    return dp[len(nums)][value]
 
-    return dp[value]
 
+array_t = [0, 0, 0, 0, 1]
 
-array_t = [1, 1, 1, 1, 1]
-print(sum_way_v2(array_t, 3))
+print(sum_way_v2(array_t, 1))
