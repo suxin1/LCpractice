@@ -21,6 +21,21 @@ def preorder_iteration(root):
 
     return result
 
+# 中序递归（左，中，右）
+def midorder_iteration(root):
+    result = list()
+    stack = []
+    cur = root
+    while cur or stack:
+        if cur:
+            stack.append(cur)
+            cur = cur.left
+        else:
+            cur = stack.pop()
+            result.append(cur.val)
+            cur = cur.right
+    return result
+
 
 def tree_factory(tree: List):
     """
@@ -49,4 +64,4 @@ def tree_factory(tree: List):
 list_tree = [[1, 2, 3], [2, 4, 5], [3, 6, 7], [4], [5], [6], [7]]
 root = tree_factory(list_tree)
 
-print(preorder_iteration(root))
+print(midorder_iteration(root))
