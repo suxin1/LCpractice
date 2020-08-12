@@ -21,7 +21,8 @@ def preorder_iteration(root):
 
     return result
 
-# 中序递归（左，中，右）
+
+# 中序遍历（左，中，右）
 def midorder_iteration(root):
     result = list()
     stack = []
@@ -34,6 +35,20 @@ def midorder_iteration(root):
             cur = stack.pop()
             result.append(cur.val)
             cur = cur.right
+    return result
+
+
+#后序遍历（左，右，中）
+def afterorder_iteration(root):
+    result = list()
+    stack = [root]
+    while stack:
+        cur = stack.pop()
+        if cur:
+            result.append(cur.val)
+            stack.append(cur.left)
+            stack.append(cur.right)
+    result.reverse()
     return result
 
 
@@ -61,7 +76,7 @@ def tree_factory(tree: List):
     return memo[tree[0][0]]
 
 
-list_tree = [[1, 2, 3], [2, 4, 5], [3, 6, 7], [4], [5], [6], [7]]
+list_tree = [[5, 4, 6], [4, 1, 2], [6, 7, 8], [1], [2], [7], [8]]
 root = tree_factory(list_tree)
 
-print(midorder_iteration(root))
+print(afterorder_iteration(root))

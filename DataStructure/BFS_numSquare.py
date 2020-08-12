@@ -37,7 +37,7 @@ def num_squares_v2(n: int) -> int:
             return 1
         min_num = float('inf')
         for square in square_list:
-            if m < square:
+            if square > m:
                 break
             new_num = minNumSquare(m - square) + 1
             min_num = min(new_num, min_num)
