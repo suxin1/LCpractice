@@ -3,7 +3,6 @@
  * 可以作为队列使用，在队列未满的情况下，可以持续向里面添加内容而不需要重新安排内存。提高数据操作效率。
  * 尾部索引计算：current_index = (head + count) % capacity（添加内容时）
  * 头部索引计算： head_index = (head + 1) % capacity；当从队列中移除头部元素时，头部向前移动一位。
- * 
  */
 #ifndef __RING_BUFFER__
 #define __RING_BUFFER__
