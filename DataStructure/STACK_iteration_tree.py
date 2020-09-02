@@ -11,7 +11,7 @@ class Node(object):
         self.right = right
 
 
-# 前序递归（中，左，右）
+# 前序遍历（中，左，右）
 def preorder_iteration(root):
     result = list()
     stack = [root]
