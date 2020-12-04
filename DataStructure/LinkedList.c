@@ -26,7 +26,7 @@ LinkedList linkedList_create() {
   tail -> prev = head;
   list.head = head;
   list.tail = tail;
-
+  return list;
 }
 
 #endif

@@ -54,6 +54,20 @@ def afterorder_iteration(root):
     result.reverse()
     return result
 
+# 最大深度（递归方式）
+def deepth(root, deepth=0):
+    
+    def recurse(node, deepth):
+        left = deepth
+        right = deepth
+        if node.left:
+            left = recurse(node.left, deepth + 1)
+        if node.right:
+            right = recurse(node.right, deepth + 1)
+        return max(left, right)
+
+    return recurse(root, deepth + 1)
+
 
 def tree_factory(tree: List):
     """
@@ -83,3 +97,4 @@ list_tree = [[5, 4, 6], [4, 1, 2], [6, 7, 8], [1], [2], [7], [8]]
 root = tree_factory(list_tree)
 
 print(afterorder_iteration(root))
+print(deepth(root))
