@@ -2,7 +2,7 @@
 二叉树的前序，中序，后序遍历
 """
 from typing import List
-
+from collections import deque
 
 class Node(object):
     def __init__(self, value, left=None, right=None):
@@ -56,7 +56,9 @@ def afterorder_iteration(root):
 
 # 最大深度（递归方式）
 def deepth(root, deepth=0):
-    
+    if not root:
+        return 0
+
     def recurse(node, deepth):
         left = deepth
         right = deepth
@@ -68,6 +70,26 @@ def deepth(root, deepth=0):
 
     return recurse(root, deepth + 1)
 
+def deepth_bfs(root):
+    if not root:
+        return 0
+
+
+    queen = deque([root])
+    d = 0
+
+    while queen:
+        length = len(queen)
+        while length > 0:
+            cur = queen.popleft()
+            if cur.left:
+                queen.append(cur.left)
+            if cur.right:
+                queen.append(cur.right)
+            length -= 1
+        d += 1
+
+    return d
 
 def tree_factory(tree: List):
     """
@@ -97,4 +119,4 @@ list_tree = [[5, 4, 6], [4, 1, 2], [6, 7, 8], [1], [2], [7], [8]]
 root = tree_factory(list_tree)
 
 print(afterorder_iteration(root))
-print(deepth(root))
+print(deepth_bfs(root))

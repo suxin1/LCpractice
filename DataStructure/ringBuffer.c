@@ -21,7 +21,7 @@ typedef struct {
     int16_t count;
     int16_t capacity;
     int *data;
-}RingBuffer_t;
+} RingBuffer_t;
 
 
 void ringBufferInit(RingBuffer_t *buffer, int size) {

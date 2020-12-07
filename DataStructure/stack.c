@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// stack 结构体
 typedef struct {
     int index;
     int length;
@@ -21,9 +22,9 @@ int stack_isEmpty(Stack stack) {
 }
 
 int stack_get(Stack stack) {
-    if (stack.index < 0) {
-        return -1;
-    }
+    /**
+     * 调用 stack_get 之前需调用 stack_isEmpty 判断是否为空。
+     * */
     return stack.data[stack.index];
 }
 
@@ -42,7 +43,11 @@ void stack_add(Stack *stack, int c) {
 }
 
 void stack_free(Stack stack) {
+    /** 
+     * stack 内存清理。
+     * */
     free(stack.data);
+    stack.data = NULL;
 }
 
 #endif

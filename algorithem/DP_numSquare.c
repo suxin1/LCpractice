@@ -4,10 +4,18 @@
 #include <limits.h>
 
 int numSqures(int n);
+void print_size(int a[][3]);
 
 int main() {
     int res = numSqures(450);
+    int a[3][3];
+    printf("size: %u\n", sizeof(a));
+    print_size(a);
     printf("minimu of squre number of %d is %d\n", 450, res);
+}
+
+void print_size(int a[][3]) {
+    printf("sizeof a: %u a[0]:%u int: %u\n", (int) sizeof(*a), (int) sizeof(a[0]), (int) sizeof(int));
 }
     
 
@@ -24,7 +32,7 @@ int numSqures(int n) {
 
     // 定义指针变量（数组）dp并初始化为最大值。
     int *dp = (int *) malloc((n+1) * sizeof(int));
-    for(int i=0;i<=n;i++) {
+    for(int i=1;i<=n;i++) {
         dp[i] = INT_MAX; // fill with max value of type int.
     }
     dp[0] = 0;
