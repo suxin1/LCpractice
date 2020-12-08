@@ -9,12 +9,17 @@ typedef struct _Node {
   Node * right;
 } Node;
 
+typedef struct {
+  Node root;
+  Node *memo;
+} Tree;
+
 
 /**
  * 输入一个二维数组，返回一个二叉树的根节点。
  * 二维数组型如： {{1, 2, 4}, {2, 5, 6}, {4, 0, 0}, {5, 0, 0}, {6, 0, 0}} 0表示无子节点。
  * */
-Node bt_from_array(int a[][3], int size) {
+Tree bt_from_array(int a[][3], int size) {
   Node root;
 
   Node *memo = (Node *) malloc(size * sizeof(Node));
@@ -45,12 +50,23 @@ Node bt_from_array(int a[][3], int size) {
 
   }
 
-  return memo[0];
+  Tree tree;
+  tree.memo = memo;
+  tree.root = memo[0];
+  return tree;
+}
+
+/**
+ * 释放树占用内存。
+ * */
+void destroy_tree(Tree tree) {
+  free(tree.memo);
 }
 
 
 int main() {
   int a[7][3] = { {5, 4, 6}, {4, 1, 2}, {6, 7, 8}, {1, 0, 0}, {2, 0, 0}, {7, 0, 0}, {8, 0, 0} };
-  Node n = bt_from_array(a, 7);
-  printf("node.value %d, node.right.value %d\n", n.value, n.right->value);
+  Tree n = bt_from_array(a, 7);
+  printf("node.value %d, node.right.value %d\n", n.root.value, n.root.right->value);
+  destroy_tree(n);
 }
